@@ -1,13 +1,41 @@
 package com.qa.may.entity;
 
+import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Car {
-	
+
+	@Id // Primary Key
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
+	public Car(Integer id, String brand, String fuel, Double engine) {
+		super();
+		this.id = id;
+		this.brand = brand;
+		this.fuel = fuel;
+		this.engine = engine;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	private String brand;
 	private String fuel;
-	private Double	engine;
-	
+	private Double engine;
+
 	public Car() {
-		
+
 		super();
 	}
 
@@ -43,10 +71,26 @@ public class Car {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(brand, engine, fuel, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Car other = (Car) obj;
+		return Objects.equals(brand, other.brand) && Objects.equals(engine, other.engine)
+				&& Objects.equals(fuel, other.fuel) && Objects.equals(id, other.id);
+	}
+
+	@Override
 	public String toString() {
 		return "Car [brand=" + brand + ", fuel=" + fuel + ", engine=" + engine + "]";
 	}
-	
-	
 
 }

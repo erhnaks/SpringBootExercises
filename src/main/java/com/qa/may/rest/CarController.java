@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.websocket.server.PathParam;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,8 +22,7 @@ import com.qa.may.service.CarService;
 @RestController
 public class CarController {
 
-	// private List<Car> cars = new ArrayList<>();
-
+	@Autowired
 	private CarService service;
 
 	@GetMapping("/demoCar")
@@ -33,15 +34,19 @@ public class CarController {
 
 	@GetMapping("/carReadById/{id}")
 	public Car getById(@PathVariable int id) {
-		// System.out.println("ID: " + id);
 		return this.service.getById(id);
 
 	}
 
 	@GetMapping("/carGetAll")
-	public List<Car> getAllcars() {
+	public List<Car> getAll() {
 
 		return this.service.getAll();
+	}
+
+	@GetMapping("getCarByName/{name}")
+	public Car getCarByBrandName(@PathVariable String brand) {
+		return this.service.findByname(brand);
 	}
 
 	@PostMapping("/createCar")
@@ -55,36 +60,26 @@ public class CarController {
 
 	}
 
-//	@PatchMapping("/updateCarPatch/{id}")
-//	public void updateByPatch(@PathVariable("id") int id, @PathParam("brand") String brand,
-//			@PathParam("fuel") String fuel, @PathParam("engine") Double engine) {
-//		System.out.println("ID: " + id);
-//		System.out.println("Brand: " + brand);
-//		System.out.println("Fuel: " + fuel);
-//		System.out.println("Engine: " + engine);
-//	}
-
-	@PutMapping("/updateCarPut/{id}")
-	public Car updateByPut(@PathVariable("id") int id, @PathParam("brand") String brand, @PathParam("fuel") String fuel,
+	@PutMapping("/updateCar/{id}")
+	public Car update(@PathVariable("id") int id, @PathParam("brand") String brand, @PathParam("fuel") String fuel,
 			@PathParam("engine") Double engine) {
-//		System.out.println("ID: " + id);
-//		System.out.println("Brand: " + brand);
-//		System.out.println("Fuel: " + fuel);
-//		System.out.println("Engine: " + engine);
 
-		Car toUpdate = this.service.update(id, brand, fuel, id);
-		toUpdate.setBrand(brand);
-		toUpdate.setFuel(fuel);
-		toUpdate.setEngine(engine);
-		return toUpdate;
+		return this.service.update(id, brand, fuel, engine);
+
+	}
+
+	@PatchMapping("/updateCarByPatch/{id}")
+	public Car updateByPatch(@PathVariable("id") int id, @PathParam("brand") String brand,
+			@PathParam("fuel") String fuel, @PathParam("engine") Double engine) {
+
+		return this.service.update(id, brand, fuel, engine);
 
 	}
 
 	@DeleteMapping("/removeCar/{id}")
 	public ResponseEntity<?> delete(@PathVariable int id) {
-		//System.out.println("ID: " + id);
 		this.service.delete(id);
-		return ResponseEntity.noContent().build();
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 }

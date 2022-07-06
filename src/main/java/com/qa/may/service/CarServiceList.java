@@ -3,27 +3,25 @@ package com.qa.may.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.qa.may.entity.Car;
 
 @Service
-@Primary
+
 public class CarServiceList implements CarService {
 
 	private List<Car> cars = new ArrayList<>();
 
 	@Override
 	public Car getById(int id) {
-		// TODO Auto-generated method stub
+
 		return this.cars.get(id);
 	}
 
 	@Override
 	public List<Car> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cars;
 	}
 
 	@Override
@@ -35,20 +33,46 @@ public class CarServiceList implements CarService {
 	}
 
 	@Override
-	public Car update(int id, String brand, String fuel, int engine) {
-		// TODO Auto-generated method stub
+	public void delete(int id) {
+		this.cars.remove(id);
+	}
+
+	@Override
+	public Car findByname(String brand) { // For loop to return search by name;
+		for (Car car : this.cars) {
+			if (car.getBrand().equals(brand))
+
+				return car;
+
+		}
+
 		return null;
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public Car update(int id, String brand, String fuel, Double engine) {
+		Car toUpdate = this.cars.get(id);
 
+		if (brand != null)
+			toUpdate.setBrand(brand);
+		if (fuel != null)
+			toUpdate.setFuel(fuel);
+		if (engine != null)
+			toUpdate.setEngine(engine);
+		return toUpdate;
 	}
 
-	public Car update(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override
+	public Car updateByPatch(int id, String brand, String fuel, Double engine) {
+		Car toUpdate = this.cars.get(id);
+
+		if (brand != null)
+			toUpdate.setBrand(brand);
+		if (fuel != null)
+			toUpdate.setFuel(fuel);
+		if (engine != null)
+			toUpdate.setEngine(engine);
+		return toUpdate;
 	}
 
 }
