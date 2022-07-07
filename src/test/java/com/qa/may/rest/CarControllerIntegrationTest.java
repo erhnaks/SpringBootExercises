@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -57,7 +58,7 @@ public class CarControllerIntegrationTest {
 		String toJSON = this.mapper.writeValueAsString(updatedCar);
 		ResultMatcher checkBody = MockMvcResultMatchers.content().json(toJSON);
 
-		this.mvc.perform(patch("/updateCarByPatch/1?brand=Lambo&fuel=Petrol&engine=6.3")).andExpect(checkBody)
+		this.mvc.perform(put("/updateCar/1?brand=Lambo&fuel=Petrol&engine=6.3")).andExpect(checkBody)
 				.andExpect(status().isOk());
 	}
 

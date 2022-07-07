@@ -25,12 +25,12 @@ public class CarController {
 	@Autowired
 	private CarService service;
 
-	@GetMapping("/demoCar")
-	public Car getDemoCar() {
-
-		return new Car("Audi", "Petrol", 2.1);
-
-	}
+//	@GetMapping("/demoCar")
+//	public Car getDemoCar() {
+//
+//		return new Car("Audi", "Petrol", 2.1);
+//
+//	}
 
 	@GetMapping("/carReadById/{id}")
 	public Car getById(@PathVariable int id) {
