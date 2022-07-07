@@ -44,8 +44,8 @@ public class CarController {
 		return this.service.getAll();
 	}
 
-	@GetMapping("getCarByName/{name}")
-	public Car getCarByBrandName(@PathVariable String brand) {
+	@GetMapping("findByName/{brand}")
+	public Car findByName(@PathVariable String brand) {
 		return this.service.findByname(brand);
 	}
 

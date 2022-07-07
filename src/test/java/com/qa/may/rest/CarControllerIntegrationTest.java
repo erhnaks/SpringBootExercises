@@ -62,6 +62,16 @@ public class CarControllerIntegrationTest {
 	}
 
 	@Test
+	void testUpdateByPatch() throws Exception {
+		Car updatedCar = new Car(1, "Lambo", "Petrol", 6.3);
+		String toJSON = this.mapper.writeValueAsString(updatedCar);
+		ResultMatcher checkBody = MockMvcResultMatchers.content().json(toJSON);
+
+		this.mvc.perform(patch("/updateCarByPatch/1?brand=Lambo&fuel=Petrol&engine=6.3")).andExpect(checkBody)
+				.andExpect(status().isOk());
+	}
+
+	@Test
 	void testReadByAll() throws Exception {
 
 		List<Car> readCars = new ArrayList<>();
@@ -81,6 +91,17 @@ public class CarControllerIntegrationTest {
 		this.mvc.perform(get("/carReadById/1")).andExpect(content().json(createdCarAsJSON)).andExpect(status().isOk());
 
 	} // get url //body
+
+	@Test
+	void testReadByBrand() throws Exception {
+
+		Car readCar = new Car(1, "Volvo", "Hybrid", 2.2);
+		String createdCarAsJSON = this.mapper.writeValueAsString(readCar);
+
+		this.mvc.perform(get("/findByName/Volvo")).andExpect(content().json(createdCarAsJSON))
+				.andExpect(status().isOk());
+
+	}
 
 	@Test
 	void testDelete() throws Exception {
