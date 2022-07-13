@@ -13,8 +13,23 @@ public class Car {
 	@Id // Primary Key
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String brand;
+	private String fuel;
+	private Double engine;
 
-	public Car(Integer id, String brand, String fuel, Double engine) {
+	public Car() { // Super(Always at the top)
+
+		super();
+	}
+
+	public Car(String brand, String fuel, Double engine) {
+		super();
+		this.brand = brand;
+		this.fuel = fuel;
+		this.engine = engine;
+	}
+
+	public Car(Integer id, String brand, String fuel, Double engine) { // Constructor with an ID
 		super();
 		this.id = id;
 		this.brand = brand;
@@ -28,22 +43,6 @@ public class Car {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	private String brand;
-	private String fuel;
-	private Double engine;
-
-	public Car() {
-
-		super();
-	}
-
-	public Car(String brand, String fuel, Double engine) {
-		super();
-		this.brand = brand;
-		this.fuel = fuel;
-		this.engine = engine;
 	}
 
 	public String getBrand() {
