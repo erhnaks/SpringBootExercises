@@ -58,8 +58,8 @@ function renderCars() {
                 const carDelete = document.createElement('button');
                 carDelete.innerText = "DELETE";
                 carDelete.addEventListener("click", () => {
-                    console.log("DINO: ", car);
-                    deleteDino(car.id);
+                    console.log("CAR: ", car);
+                    deleteCar(car.id);
                 });
                 carDiv.appendChild(carDelete);
 
